@@ -23,7 +23,7 @@ upstream's `docker-compose.yaml`. The source is vendored unchanged in [`app/`](a
 
 ```bash
 isoloom generate
-isoloom up docker
+isoloom run docker
 isoloom test docker
 ```
 
