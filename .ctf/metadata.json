@@ -1,0 +1,9 @@
+{
+  "title": "CI/CD Goat",
+  "description": "A deliberately vulnerable CI/CD environment by Cider Security: eleven challenges against real Jenkins, Gitea and GitLab pipelines, covering the OWASP Top 10 CI/CD risks such as poisoned pipeline execution, dependency chain abuse and pipeline-based access controls.",
+  "question": "Capture the flags of the challenges listed in CTFd.",
+  "category": "MISC",
+  "difficulty": 3,
+  "evidence_kind": "SECRET",
+  "capabilities": ["ci-cd-security", "poisoned-pipeline-execution", "secret-discovery", "supply-chain-attack"]
+}

@@ -1,0 +1,90 @@
+# yaml-language-server: $schema=https://www.isoloom.com/schema/v1.json
+# CI/CD Goat (by Cider Security, now Palo Alto Networks): a deliberately vulnerable CI/CD
+# environment with eleven challenges (poisoned pipeline execution, dependency chain abuse,
+# pipeline-based access controls and more) against real Jenkins, Gitea and GitLab pipelines.
+# Source: https://github.com/cider-security-research/cicd-goat, vendored in app/. The machines
+# are upstream's release 1.2.7 images (built by upstream's CI from app/), pinned by digest, as in
+# upstream's docker-compose.yaml; build/ only bakes in that file's environment values.
+# `isoloom generate`, then `isoloom up docker`.
+version: 1
+name: cicd-goat
+
+# GitLab's setup runs `terraform init` (provider download) at first start, and the runners pull
+# their job images: the network needs the internet.
+networks:
+  lab: { cidr: 10.60.122.0/24, internet: true }
+
+machines:
+  jenkins-server:
+    networks: { lab: 10 }
+    services:
+      - { port: 8080, name: jenkins, http: true, publish: 8080 }
+      - { port: 50000, name: jenkins-agents }
+    docker:
+      build: build/jenkins-server
+  jenkins-agent:
+    networks: { lab: 11 }
+    services: [{ port: 22, name: ssh }]
+    docker:
+      build: build/jenkins-agent
+  gitea:
+    networks: { lab: 12 }
+    services: [{ port: 3000, name: gitea, http: true, publish: 3000 }]
+    docker:
+      image: cidersecurity/goat-gitea:1.2.7@sha256:c4832d01cae610a5679b3d1bf6daaccf7447700624de0730d821fe64e71b5b3a
+  ctfd:
+    networks: { lab: 13 }
+    services: [{ port: 8000, name: ctfd, http: true, publish: 8000 }]
+    docker:
+      image: cidersecurity/goat-ctfd:1.2.7@sha256:f47accf01bf1781a504cccdbedafbc3cdb46ae1bdd2a9c6e3b135c9a24feaaac
+  localstack:
+    networks: { lab: 14 }
+    services: [{ port: 4566, name: localstack, http: true }]
+    docker:
+      image: localstack/localstack:3.0.2@sha256:e606c4421419030b12d63a59f1211f57f5b0fbf7e9ce769e6250ee62ff4f9293
+  prod:
+    networks: { lab: 15 }
+    privileged: true
+    services:
+      - { port: 80, name: web, http: true, publish: 8008 }
+      - { port: 22, name: ssh, publish: 2222 }
+    docker:
+      image: cidersecurity/goat-prod:1.2.7@sha256:b0678a9ba9bb17d44ab0714213222af68acf620eea873acb4e8e8ccaf1dbb879
+  gitlab:
+    networks: { lab: 16 }
+    shm_size: 256m
+    services:
+      - { port: 80, name: gitlab, http: true, publish: 4000 }
+      - { port: 5050, name: registry, publish: 5050 }
+    docker:
+      build: build/gitlab
+  gitlab-runner:
+    networks: { lab: 17 }
+    privileged: true
+    shm_size: 256m
+    docker:
+      image: cidersecurity/goat-gitlab-runner:1.2.7@sha256:c1d13ac1c94ead37d514860bf8a1b0dff8bb1070b648b97ee47bde37fc8d9ccc
+  docker:
+    networks: { lab: 18 }
+    privileged: true
+    services: [{ port: 2375, name: docker-api }]
+    docker:
+      build: build/docker
+
+# No memory limits, as upstream; Jenkins' heap and GitLab's Puma workers are capped in their
+# build/ images instead, so the stack fits an 8 GB Docker host.
+# Upstream: "it might take up to 5 minutes until the containers configuration process is
+# complete"; GitLab takes longer on a small Docker host.
+checks:
+  - { name: CTFd answers, http: "http://ctfd:8000/", wait: 600 }
+  - { name: Jenkins answers, http: "http://jenkins-server:8080/login", wait: 600 }
+  - { name: Gitea answers, http: "http://gitea:3000/", wait: 600 }
+  - { name: GitLab answers, http: "http://gitlab/users/sign_in", wait: 1500 }
+  - checks/goat.sh
+
+message: |
+  CI/CD Goat is starting (allow up to 15 minutes for GitLab). Log in to CTFd at
+  http://localhost:{{ machines.ctfd.services.0.publish }}/ as alice / alice to see the challenges, then hack
+  Jenkins (http://localhost:{{ machines.jenkins-server.services.0.publish }}/, alice / alice),
+  Gitea (http://localhost:{{ machines.gitea.services.0.publish }}/, thealice / thealice) and
+  GitLab (http://localhost:{{ machines.gitlab.services.0.publish }}/, alice / ali12345).

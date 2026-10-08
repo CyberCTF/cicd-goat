@@ -1,0 +1,1257 @@
+{
+  "generated_by_isoloom": "from isoloom.yml; don't edit: change the spec and run `isoloom generate` (`isoloom check` fails when this file is out of date)",
+  "resolved_version": 1,
+  "name": "cicd-goat",
+  "instance": null,
+  "inputs": [],
+  "networks": {
+    "lab": {
+      "cidr": "10.60.122.0/24",
+      "docker_cidr": "10.60.122.0/24",
+      "internet": true,
+      "gateway": null,
+      "gateway_address": "10.60.122.1",
+      "router": null,
+      "controller": "10.60.122.253"
+    }
+  },
+  "reach": [],
+  "machines": {
+    "jenkins-server": {
+      "access": false,
+      "supplied": false,
+      "shapes": [
+        "docker"
+      ],
+      "arch": "amd64",
+      "os": null,
+      "windows": false,
+      "addresses": {
+        "lab": "10.60.122.10"
+      },
+      "docker_addresses": {
+        "lab": "10.60.122.10"
+      },
+      "services": [
+        {
+          "port": 8080,
+          "name": "jenkins",
+          "http": true,
+          "publish": 8080
+        },
+        {
+          "port": 50000,
+          "name": "jenkins-agents",
+          "http": false,
+          "publish": null
+        }
+      ],
+      "depends_on": [],
+      "inputs": [],
+      "volumes": {},
+      "resources": {
+        "cpus": 1,
+        "memory_mb": 1024,
+        "disk_gb": 20
+      },
+      "gateway_of": [],
+      "routes": [],
+      "default_gateway": null,
+      "offline": false
+    },
+    "jenkins-agent": {
+      "access": false,
+      "supplied": false,
+      "shapes": [
+        "docker"
+      ],
+      "arch": "amd64",
+      "os": null,
+      "windows": false,
+      "addresses": {
+        "lab": "10.60.122.11"
+      },
+      "docker_addresses": {
+        "lab": "10.60.122.11"
+      },
+      "services": [
+        {
+          "port": 22,
+          "name": "ssh",
+          "http": false,
+          "publish": null
+        }
+      ],
+      "depends_on": [],
+      "inputs": [],
+      "volumes": {},
+      "resources": {
+        "cpus": 1,
+        "memory_mb": 1024,
+        "disk_gb": 20
+      },
+      "gateway_of": [],
+      "routes": [],
+      "default_gateway": null,
+      "offline": false
+    },
+    "gitea": {
+      "access": false,
+      "supplied": false,
+      "shapes": [
+        "docker"
+      ],
+      "arch": "amd64",
+      "os": null,
+      "windows": false,
+      "addresses": {
+        "lab": "10.60.122.12"
+      },
+      "docker_addresses": {
+        "lab": "10.60.122.12"
+      },
+      "services": [
+        {
+          "port": 3000,
+          "name": "gitea",
+          "http": true,
+          "publish": 3000
+        }
+      ],
+      "depends_on": [],
+      "inputs": [],
+      "volumes": {},
+      "resources": {
+        "cpus": 1,
+        "memory_mb": 1024,
+        "disk_gb": 20
+      },
+      "gateway_of": [],
+      "routes": [],
+      "default_gateway": null,
+      "offline": false
+    },
+    "ctfd": {
+      "access": false,
+      "supplied": false,
+      "shapes": [
+        "docker"
+      ],
+      "arch": "amd64",
+      "os": null,
+      "windows": false,
+      "addresses": {
+        "lab": "10.60.122.13"
+      },
+      "docker_addresses": {
+        "lab": "10.60.122.13"
+      },
+      "services": [
+        {
+          "port": 8000,
+          "name": "ctfd",
+          "http": true,
+          "publish": 8000
+        }
+      ],
+      "depends_on": [],
+      "inputs": [],
+      "volumes": {},
+      "resources": {
+        "cpus": 1,
+        "memory_mb": 1024,
+        "disk_gb": 20
+      },
+      "gateway_of": [],
+      "routes": [],
+      "default_gateway": null,
+      "offline": false
+    },
+    "localstack": {
+      "access": false,
+      "supplied": false,
+      "shapes": [
+        "docker"
+      ],
+      "arch": "amd64",
+      "os": null,
+      "windows": false,
+      "addresses": {
+        "lab": "10.60.122.14"
+      },
+      "docker_addresses": {
+        "lab": "10.60.122.14"
+      },
+      "services": [
+        {
+          "port": 4566,
+          "name": "localstack",
+          "http": true,
+          "publish": null
+        }
+      ],
+      "depends_on": [],
+      "inputs": [],
+      "volumes": {},
+      "resources": {
+        "cpus": 1,
+        "memory_mb": 1024,
+        "disk_gb": 20
+      },
+      "gateway_of": [],
+      "routes": [],
+      "default_gateway": null,
+      "offline": false
+    },
+    "prod": {
+      "access": false,
+      "supplied": false,
+      "shapes": [
+        "docker"
+      ],
+      "arch": "amd64",
+      "os": null,
+      "windows": false,
+      "addresses": {
+        "lab": "10.60.122.15"
+      },
+      "docker_addresses": {
+        "lab": "10.60.122.15"
+      },
+      "services": [
+        {
+          "port": 80,
+          "name": "web",
+          "http": true,
+          "publish": 8008
+        },
+        {
+          "port": 22,
+          "name": "ssh",
+          "http": false,
+          "publish": 2222
+        }
+      ],
+      "depends_on": [],
+      "inputs": [],
+      "volumes": {},
+      "resources": {
+        "cpus": 1,
+        "memory_mb": 1024,
+        "disk_gb": 20
+      },
+      "gateway_of": [],
+      "routes": [],
+      "default_gateway": null,
+      "offline": false
+    },
+    "gitlab": {
+      "access": false,
+      "supplied": false,
+      "shapes": [
+        "docker"
+      ],
+      "arch": "amd64",
+      "os": null,
+      "windows": false,
+      "addresses": {
+        "lab": "10.60.122.16"
+      },
+      "docker_addresses": {
+        "lab": "10.60.122.16"
+      },
+      "services": [
+        {
+          "port": 80,
+          "name": "gitlab",
+          "http": true,
+          "publish": 4000
+        },
+        {
+          "port": 5050,
+          "name": "registry",
+          "http": false,
+          "publish": 5050
+        }
+      ],
+      "depends_on": [],
+      "inputs": [],
+      "volumes": {},
+      "resources": {
+        "cpus": 1,
+        "memory_mb": 1024,
+        "disk_gb": 20
+      },
+      "gateway_of": [],
+      "routes": [],
+      "default_gateway": null,
+      "offline": false
+    },
+    "gitlab-runner": {
+      "access": false,
+      "supplied": false,
+      "shapes": [
+        "docker"
+      ],
+      "arch": "amd64",
+      "os": null,
+      "windows": false,
+      "addresses": {
+        "lab": "10.60.122.17"
+      },
+      "docker_addresses": {
+        "lab": "10.60.122.17"
+      },
+      "services": [],
+      "depends_on": [],
+      "inputs": [],
+      "volumes": {},
+      "resources": {
+        "cpus": 1,
+        "memory_mb": 1024,
+        "disk_gb": 20
+      },
+      "gateway_of": [],
+      "routes": [],
+      "default_gateway": null,
+      "offline": false
+    },
+    "docker": {
+      "access": false,
+      "supplied": false,
+      "shapes": [
+        "docker"
+      ],
+      "arch": "amd64",
+      "os": null,
+      "windows": false,
+      "addresses": {
+        "lab": "10.60.122.18"
+      },
+      "docker_addresses": {
+        "lab": "10.60.122.18"
+      },
+      "services": [
+        {
+          "port": 2375,
+          "name": "docker-api",
+          "http": false,
+          "publish": null
+        }
+      ],
+      "depends_on": [],
+      "inputs": [],
+      "volumes": {},
+      "resources": {
+        "cpus": 1,
+        "memory_mb": 1024,
+        "disk_gb": 20
+      },
+      "gateway_of": [],
+      "routes": [],
+      "default_gateway": null,
+      "offline": false
+    }
+  },
+  "start_order": [
+    "jenkins-server",
+    "jenkins-agent",
+    "gitea",
+    "ctfd",
+    "localstack",
+    "prod",
+    "gitlab",
+    "gitlab-runner",
+    "docker"
+  ],
+  "clones": {},
+  "tools": {},
+  "groups": {},
+  "router": null,
+  "controller": {
+    "addresses": {
+      "lab": "10.60.122.253"
+    }
+  },
+  "published": [
+    {
+      "machine": "jenkins-server",
+      "port": 8080,
+      "host_port": 8080
+    },
+    {
+      "machine": "gitea",
+      "port": 3000,
+      "host_port": 3000
+    },
+    {
+      "machine": "ctfd",
+      "port": 8000,
+      "host_port": 8000
+    },
+    {
+      "machine": "prod",
+      "port": 80,
+      "host_port": 8008
+    },
+    {
+      "machine": "prod",
+      "port": 22,
+      "host_port": 2222
+    },
+    {
+      "machine": "gitlab",
+      "port": 80,
+      "host_port": 4000
+    },
+    {
+      "machine": "gitlab",
+      "port": 5050,
+      "host_port": 5050
+    }
+  ],
+  "targets": {
+    "possible": [
+      "docker",
+      "hosted",
+      "docker-vm",
+      "cloud-docker",
+      "kubernetes"
+    ],
+    "generated": [
+      "docker",
+      "hosted",
+      "docker-vm",
+      "cloud-docker",
+      "kubernetes"
+    ],
+    "refused": {},
+    "not_possible": {
+      "hybrid": "only when some machines are containers and others are VMs",
+      "vagrant": "needs `vm:` on jenkins-server, jenkins-agent, gitea, ctfd, localstack, prod, gitlab, gitlab-runner, docker",
+      "proxmox": "needs `vm:` on jenkins-server, jenkins-agent, gitea, ctfd, localstack, prod, gitlab, gitlab-runner, docker",
+      "cloud-vm": "needs `vm:` on jenkins-server, jenkins-agent, gitea, ctfd, localstack, prod, gitlab, gitlab-runner, docker",
+      "external": "needs `external:` on jenkins-server, jenkins-agent, gitea, ctfd, localstack, prod, gitlab, gitlab-runner, docker"
+    }
+  },
+  "checks": {
+    "default_position": "networks",
+    "positions": [
+      {
+        "position": "networks",
+        "machine": null,
+        "runner": "isoloom-check",
+        "checks": [
+          {
+            "name": "CTFd answers",
+            "derived": false,
+            "kind": "http",
+            "target": "http://ctfd:8000/",
+            "expect": "200",
+            "wait": 600
+          },
+          {
+            "name": "Jenkins answers",
+            "derived": false,
+            "kind": "http",
+            "target": "http://jenkins-server:8080/login",
+            "expect": "200",
+            "wait": 600
+          },
+          {
+            "name": "Gitea answers",
+            "derived": false,
+            "kind": "http",
+            "target": "http://gitea:3000/",
+            "expect": "200",
+            "wait": 600
+          },
+          {
+            "name": "GitLab answers",
+            "derived": false,
+            "kind": "http",
+            "target": "http://gitlab/users/sign_in",
+            "expect": "200",
+            "wait": 1500
+          },
+          {
+            "name": "checks/goat.sh",
+            "derived": false,
+            "kind": "script",
+            "target": "checks/goat.sh",
+            "expect": "",
+            "wait": 0
+          }
+        ]
+      },
+      {
+        "position": "jenkins-server",
+        "machine": "jenkins-server",
+        "runner": "isoloom-check-jenkins-server",
+        "checks": [
+          {
+            "name": "jenkins-agent:22 from jenkins-server",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.11:22",
+            "expect": "open",
+            "wait": 30
+          },
+          {
+            "name": "gitea:3000 from jenkins-server",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.12:3000/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "ctfd:8000 from jenkins-server",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.13:8000/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "localstack:4566 from jenkins-server",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.14:4566/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "prod:80 from jenkins-server",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.15:80/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "prod:22 from jenkins-server",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.15:22",
+            "expect": "open",
+            "wait": 30
+          },
+          {
+            "name": "gitlab:80 from jenkins-server",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.16:80/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "gitlab:5050 from jenkins-server",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.16:5050",
+            "expect": "open",
+            "wait": 30
+          },
+          {
+            "name": "docker:2375 from jenkins-server",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.18:2375",
+            "expect": "open",
+            "wait": 30
+          }
+        ]
+      },
+      {
+        "position": "jenkins-agent",
+        "machine": "jenkins-agent",
+        "runner": "isoloom-check-jenkins-agent",
+        "checks": [
+          {
+            "name": "jenkins-server:8080 from jenkins-agent",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.10:8080/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "jenkins-server:50000 from jenkins-agent",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.10:50000",
+            "expect": "open",
+            "wait": 30
+          },
+          {
+            "name": "gitea:3000 from jenkins-agent",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.12:3000/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "ctfd:8000 from jenkins-agent",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.13:8000/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "localstack:4566 from jenkins-agent",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.14:4566/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "prod:80 from jenkins-agent",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.15:80/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "prod:22 from jenkins-agent",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.15:22",
+            "expect": "open",
+            "wait": 30
+          },
+          {
+            "name": "gitlab:80 from jenkins-agent",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.16:80/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "gitlab:5050 from jenkins-agent",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.16:5050",
+            "expect": "open",
+            "wait": 30
+          },
+          {
+            "name": "docker:2375 from jenkins-agent",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.18:2375",
+            "expect": "open",
+            "wait": 30
+          }
+        ]
+      },
+      {
+        "position": "gitea",
+        "machine": "gitea",
+        "runner": "isoloom-check-gitea",
+        "checks": [
+          {
+            "name": "jenkins-server:8080 from gitea",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.10:8080/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "jenkins-server:50000 from gitea",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.10:50000",
+            "expect": "open",
+            "wait": 30
+          },
+          {
+            "name": "jenkins-agent:22 from gitea",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.11:22",
+            "expect": "open",
+            "wait": 30
+          },
+          {
+            "name": "ctfd:8000 from gitea",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.13:8000/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "localstack:4566 from gitea",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.14:4566/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "prod:80 from gitea",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.15:80/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "prod:22 from gitea",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.15:22",
+            "expect": "open",
+            "wait": 30
+          },
+          {
+            "name": "gitlab:80 from gitea",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.16:80/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "gitlab:5050 from gitea",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.16:5050",
+            "expect": "open",
+            "wait": 30
+          },
+          {
+            "name": "docker:2375 from gitea",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.18:2375",
+            "expect": "open",
+            "wait": 30
+          }
+        ]
+      },
+      {
+        "position": "ctfd",
+        "machine": "ctfd",
+        "runner": "isoloom-check-ctfd",
+        "checks": [
+          {
+            "name": "jenkins-server:8080 from ctfd",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.10:8080/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "jenkins-server:50000 from ctfd",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.10:50000",
+            "expect": "open",
+            "wait": 30
+          },
+          {
+            "name": "jenkins-agent:22 from ctfd",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.11:22",
+            "expect": "open",
+            "wait": 30
+          },
+          {
+            "name": "gitea:3000 from ctfd",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.12:3000/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "localstack:4566 from ctfd",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.14:4566/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "prod:80 from ctfd",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.15:80/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "prod:22 from ctfd",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.15:22",
+            "expect": "open",
+            "wait": 30
+          },
+          {
+            "name": "gitlab:80 from ctfd",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.16:80/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "gitlab:5050 from ctfd",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.16:5050",
+            "expect": "open",
+            "wait": 30
+          },
+          {
+            "name": "docker:2375 from ctfd",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.18:2375",
+            "expect": "open",
+            "wait": 30
+          }
+        ]
+      },
+      {
+        "position": "localstack",
+        "machine": "localstack",
+        "runner": "isoloom-check-localstack",
+        "checks": [
+          {
+            "name": "jenkins-server:8080 from localstack",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.10:8080/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "jenkins-server:50000 from localstack",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.10:50000",
+            "expect": "open",
+            "wait": 30
+          },
+          {
+            "name": "jenkins-agent:22 from localstack",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.11:22",
+            "expect": "open",
+            "wait": 30
+          },
+          {
+            "name": "gitea:3000 from localstack",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.12:3000/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "ctfd:8000 from localstack",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.13:8000/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "prod:80 from localstack",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.15:80/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "prod:22 from localstack",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.15:22",
+            "expect": "open",
+            "wait": 30
+          },
+          {
+            "name": "gitlab:80 from localstack",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.16:80/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "gitlab:5050 from localstack",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.16:5050",
+            "expect": "open",
+            "wait": 30
+          },
+          {
+            "name": "docker:2375 from localstack",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.18:2375",
+            "expect": "open",
+            "wait": 30
+          }
+        ]
+      },
+      {
+        "position": "prod",
+        "machine": "prod",
+        "runner": "isoloom-check-prod",
+        "checks": [
+          {
+            "name": "jenkins-server:8080 from prod",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.10:8080/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "jenkins-server:50000 from prod",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.10:50000",
+            "expect": "open",
+            "wait": 30
+          },
+          {
+            "name": "jenkins-agent:22 from prod",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.11:22",
+            "expect": "open",
+            "wait": 30
+          },
+          {
+            "name": "gitea:3000 from prod",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.12:3000/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "ctfd:8000 from prod",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.13:8000/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "localstack:4566 from prod",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.14:4566/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "gitlab:80 from prod",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.16:80/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "gitlab:5050 from prod",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.16:5050",
+            "expect": "open",
+            "wait": 30
+          },
+          {
+            "name": "docker:2375 from prod",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.18:2375",
+            "expect": "open",
+            "wait": 30
+          }
+        ]
+      },
+      {
+        "position": "gitlab",
+        "machine": "gitlab",
+        "runner": "isoloom-check-gitlab",
+        "checks": [
+          {
+            "name": "jenkins-server:8080 from gitlab",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.10:8080/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "jenkins-server:50000 from gitlab",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.10:50000",
+            "expect": "open",
+            "wait": 30
+          },
+          {
+            "name": "jenkins-agent:22 from gitlab",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.11:22",
+            "expect": "open",
+            "wait": 30
+          },
+          {
+            "name": "gitea:3000 from gitlab",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.12:3000/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "ctfd:8000 from gitlab",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.13:8000/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "localstack:4566 from gitlab",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.14:4566/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "prod:80 from gitlab",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.15:80/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "prod:22 from gitlab",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.15:22",
+            "expect": "open",
+            "wait": 30
+          },
+          {
+            "name": "docker:2375 from gitlab",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.18:2375",
+            "expect": "open",
+            "wait": 30
+          }
+        ]
+      },
+      {
+        "position": "gitlab-runner",
+        "machine": "gitlab-runner",
+        "runner": "isoloom-check-gitlab-runner",
+        "checks": [
+          {
+            "name": "jenkins-server:8080 from gitlab-runner",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.10:8080/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "jenkins-server:50000 from gitlab-runner",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.10:50000",
+            "expect": "open",
+            "wait": 30
+          },
+          {
+            "name": "jenkins-agent:22 from gitlab-runner",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.11:22",
+            "expect": "open",
+            "wait": 30
+          },
+          {
+            "name": "gitea:3000 from gitlab-runner",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.12:3000/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "ctfd:8000 from gitlab-runner",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.13:8000/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "localstack:4566 from gitlab-runner",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.14:4566/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "prod:80 from gitlab-runner",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.15:80/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "prod:22 from gitlab-runner",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.15:22",
+            "expect": "open",
+            "wait": 30
+          },
+          {
+            "name": "gitlab:80 from gitlab-runner",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.16:80/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "gitlab:5050 from gitlab-runner",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.16:5050",
+            "expect": "open",
+            "wait": 30
+          },
+          {
+            "name": "docker:2375 from gitlab-runner",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.18:2375",
+            "expect": "open",
+            "wait": 30
+          }
+        ]
+      },
+      {
+        "position": "docker",
+        "machine": "docker",
+        "runner": "isoloom-check-docker",
+        "checks": [
+          {
+            "name": "jenkins-server:8080 from docker",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.10:8080/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "jenkins-server:50000 from docker",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.10:50000",
+            "expect": "open",
+            "wait": 30
+          },
+          {
+            "name": "jenkins-agent:22 from docker",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.11:22",
+            "expect": "open",
+            "wait": 30
+          },
+          {
+            "name": "gitea:3000 from docker",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.12:3000/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "ctfd:8000 from docker",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.13:8000/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "localstack:4566 from docker",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.14:4566/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "prod:80 from docker",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.15:80/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "prod:22 from docker",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.15:22",
+            "expect": "open",
+            "wait": 30
+          },
+          {
+            "name": "gitlab:80 from docker",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.122.16:80/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "gitlab:5050 from docker",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.122.16:5050",
+            "expect": "open",
+            "wait": 30
+          }
+        ]
+      }
+    ]
+  },
+  "message": "CI/CD Goat is starting (allow up to 15 minutes for GitLab). Log in to CTFd at\nhttp://localhost:8000/ as alice / alice to see the challenges, then hack\nJenkins (http://localhost:8080/, alice / alice),\nGitea (http://localhost:3000/, thealice / thealice) and\nGitLab (http://localhost:4000/, alice / ali12345).\n"
+}
