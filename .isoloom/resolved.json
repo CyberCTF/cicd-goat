@@ -431,7 +431,8 @@
       "vagrant": "needs `vm:` on jenkins-server, jenkins-agent, gitea, ctfd, localstack, prod, gitlab, gitlab-runner, docker",
       "proxmox": "needs `vm:` on jenkins-server, jenkins-agent, gitea, ctfd, localstack, prod, gitlab, gitlab-runner, docker",
       "cloud-vm": "needs `vm:` on jenkins-server, jenkins-agent, gitea, ctfd, localstack, prod, gitlab, gitlab-runner, docker",
-      "external": "needs `external:` on jenkins-server, jenkins-agent, gitea, ctfd, localstack, prod, gitlab, gitlab-runner, docker"
+      "external": "needs `external:` on jenkins-server, jenkins-agent, gitea, ctfd, localstack, prod, gitlab, gitlab-runner, docker",
+      "cloud-services": "left out by `targets:`"
     }
   },
   "checks": {

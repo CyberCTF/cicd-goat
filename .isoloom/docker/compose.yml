@@ -9,6 +9,9 @@ services:
   jenkins-server:
     build:
       context: ../../build/jenkins-server
+      labels:
+        isoloom.managed: 'true'
+        isoloom.environment: cicd-goat
     image: isoloom/cicd-goat-jenkins-server
     platform: linux/amd64
     hostname: jenkins-server
@@ -36,10 +39,15 @@ services:
     labels:
       isoloom.service.jenkins: http:8080
       isoloom.service.jenkins-agents: tcp:50000
+      isoloom.managed: 'true'
+      isoloom.environment: cicd-goat
     restart: unless-stopped
   jenkins-agent:
     build:
       context: ../../build/jenkins-agent
+      labels:
+        isoloom.managed: 'true'
+        isoloom.environment: cicd-goat
     image: isoloom/cicd-goat-jenkins-agent
     platform: linux/amd64
     hostname: jenkins-agent
@@ -64,6 +72,8 @@ services:
         condition: service_completed_successfully
     labels:
       isoloom.service.ssh: tcp:22
+      isoloom.managed: 'true'
+      isoloom.environment: cicd-goat
     restart: unless-stopped
   gitea:
     image: cidersecurity/goat-gitea:1.2.7@sha256:c4832d01cae610a5679b3d1bf6daaccf7447700624de0730d821fe64e71b5b3a
@@ -92,6 +102,8 @@ services:
         condition: service_completed_successfully
     labels:
       isoloom.service.gitea: http:3000
+      isoloom.managed: 'true'
+      isoloom.environment: cicd-goat
     restart: unless-stopped
   ctfd:
     image: cidersecurity/goat-ctfd:1.2.7@sha256:f47accf01bf1781a504cccdbedafbc3cdb46ae1bdd2a9c6e3b135c9a24feaaac
@@ -120,6 +132,8 @@ services:
         condition: service_completed_successfully
     labels:
       isoloom.service.ctfd: http:8000
+      isoloom.managed: 'true'
+      isoloom.environment: cicd-goat
     restart: unless-stopped
   localstack:
     image: localstack/localstack:3.0.2@sha256:e606c4421419030b12d63a59f1211f57f5b0fbf7e9ce769e6250ee62ff4f9293
@@ -146,6 +160,8 @@ services:
         condition: service_completed_successfully
     labels:
       isoloom.service.localstack: http:4566
+      isoloom.managed: 'true'
+      isoloom.environment: cicd-goat
     restart: unless-stopped
   prod:
     image: cidersecurity/goat-prod:1.2.7@sha256:b0678a9ba9bb17d44ab0714213222af68acf620eea873acb4e8e8ccaf1dbb879
@@ -177,10 +193,15 @@ services:
     labels:
       isoloom.service.web: http:80
       isoloom.service.ssh: tcp:22
+      isoloom.managed: 'true'
+      isoloom.environment: cicd-goat
     restart: unless-stopped
   gitlab:
     build:
       context: ../../build/gitlab
+      labels:
+        isoloom.managed: 'true'
+        isoloom.environment: cicd-goat
     image: isoloom/cicd-goat-gitlab
     platform: linux/amd64
     shm_size: 256m
@@ -210,6 +231,8 @@ services:
     labels:
       isoloom.service.gitlab: http:80
       isoloom.service.registry: tcp:5050
+      isoloom.managed: 'true'
+      isoloom.environment: cicd-goat
     restart: unless-stopped
   gitlab-runner:
     image: cidersecurity/goat-gitlab-runner:1.2.7@sha256:c1d13ac1c94ead37d514860bf8a1b0dff8bb1070b648b97ee47bde37fc8d9ccc
@@ -221,9 +244,15 @@ services:
       lab:
         ipv4_address: 10.60.122.17
     restart: unless-stopped
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: cicd-goat
   docker:
     build:
       context: ../../build/docker
+      labels:
+        isoloom.managed: 'true'
+        isoloom.environment: cicd-goat
     image: isoloom/cicd-goat-docker
     platform: linux/amd64
     privileged: true
@@ -249,6 +278,8 @@ services:
         condition: service_completed_successfully
     labels:
       isoloom.service.docker-api: tcp:2375
+      isoloom.managed: 'true'
+      isoloom.environment: cicd-goat
     restart: unless-stopped
   isoloom-check:
     image: curlimages/curl:8.11.1
@@ -279,6 +310,9 @@ services:
         condition: service_healthy
       docker:
         condition: service_healthy
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: cicd-goat
   isoloom-check-jenkins-server:
     image: curlimages/curl:8.11.1
     profiles:
@@ -306,6 +340,9 @@ services:
         condition: service_healthy
       docker:
         condition: service_healthy
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: cicd-goat
   isoloom-check-jenkins-agent:
     image: curlimages/curl:8.11.1
     profiles:
@@ -333,6 +370,9 @@ services:
         condition: service_healthy
       docker:
         condition: service_healthy
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: cicd-goat
   isoloom-check-gitea:
     image: curlimages/curl:8.11.1
     profiles:
@@ -360,6 +400,9 @@ services:
         condition: service_healthy
       docker:
         condition: service_healthy
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: cicd-goat
   isoloom-check-ctfd:
     image: curlimages/curl:8.11.1
     profiles:
@@ -387,6 +430,9 @@ services:
         condition: service_healthy
       docker:
         condition: service_healthy
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: cicd-goat
   isoloom-check-localstack:
     image: curlimages/curl:8.11.1
     profiles:
@@ -414,6 +460,9 @@ services:
         condition: service_healthy
       docker:
         condition: service_healthy
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: cicd-goat
   isoloom-check-prod:
     image: curlimages/curl:8.11.1
     profiles:
@@ -441,6 +490,9 @@ services:
         condition: service_healthy
       docker:
         condition: service_healthy
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: cicd-goat
   isoloom-check-gitlab:
     image: curlimages/curl:8.11.1
     profiles:
@@ -468,6 +520,9 @@ services:
         condition: service_healthy
       docker:
         condition: service_healthy
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: cicd-goat
   isoloom-check-gitlab-runner:
     image: curlimages/curl:8.11.1
     profiles:
@@ -497,6 +552,9 @@ services:
         condition: service_healthy
       gitlab-runner:
         condition: service_started
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: cicd-goat
   isoloom-check-docker:
     image: curlimages/curl:8.11.1
     profiles:
@@ -524,6 +582,9 @@ services:
         condition: service_healthy
       docker:
         condition: service_healthy
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: cicd-goat
   isoloom-probe-amd64:
     image: busybox:1.37.0-musl
     platform: linux/amd64
@@ -535,11 +596,20 @@ services:
     - isoloom-probe-amd64:/probe
     network_mode: none
     restart: no
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: cicd-goat
 networks:
   lab:
     ipam:
       config:
       - subnet: 10.60.122.0/24
         gateway: 10.60.122.1
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: cicd-goat
 volumes:
-  isoloom-probe-amd64: {}
+  isoloom-probe-amd64:
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: cicd-goat
