@@ -4,6 +4,5 @@
   "question": "Capture the flags of the challenges listed in CTFd.",
   "category": "MISC",
   "difficulty": 3,
-  "evidence_kind": "SECRET",
-  "capabilities": ["ci-cd-security", "poisoned-pipeline-execution", "secret-discovery", "supply-chain-attack"]
+  "evidence_kind": "SECRET"
 }
